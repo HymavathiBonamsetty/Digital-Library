@@ -1,14 +1,12 @@
-# Use OpenJDK as the base image
-FROM openjdk:17-jdk-slim
-
-# Set the working directory
+# Stage 1: Build the JAR
+FROM maven:3.8.5-openjdk-17 AS builder
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copy the built JAR file
-COPY target/dl-backend-0.0.1-SNAPSHOT.jar app.jar
-
-# Expose the application port
+# Stage 2: Run the JAR in a lightweight JDK container
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=builder /app/target/dl-backend-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
-
-# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
