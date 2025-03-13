@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "../config";
 
 const CreateBook = () => {
   const [book, setBook] = useState({
@@ -31,7 +32,7 @@ const CreateBook = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/books/create", {
+      const response = await fetch(`${API_BASE_URL}/books/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import API_BASE_URL from "../config";
 const TxnIssue = () => {
     const [txnData, setTxnData] = useState({
         studentEmail: "",
@@ -17,7 +17,7 @@ const TxnIssue = () => {
     const handleIssue = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("http://localhost:8080/txn/create", {
+            const response = await fetch(`${API_BASE_URL}/txn/create`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

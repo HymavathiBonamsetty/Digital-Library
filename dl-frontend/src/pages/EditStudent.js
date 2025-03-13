@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import API_BASE_URL from "../config";
 const EditStudent = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -11,7 +11,7 @@ const EditStudent = () => {
     });
 
     useEffect(() => {
-        fetch(`http://localhost:8080/student/get/${id}`)
+        fetch(`${API_BASE_URL}/student/get/${id}`)
             .then(response => response.json())
             .then(data => setStudent(data))
             .catch(error => console.error("Error fetching student data:", error));
@@ -24,7 +24,7 @@ const EditStudent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:8080/student/update/${id}`, {
+            const response = await fetch(`${API_BASE_URL}/student/update/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",

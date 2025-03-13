@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import API_BASE_URL from "../config";
 const Books = () => {
     const [books, setBooks] = useState([]);  // Ensure it's always an array
     const [searchTerm, setSearchTerm] = useState("");
@@ -8,7 +8,7 @@ const Books = () => {
     const [operator, setOperator] = useState("EQUALS");
 
     useEffect(() => {
-        fetch("http://localhost:8080/books/getAll")
+        fetch(`${API_BASE_URL}/books/getAll`)
             .then(response => response.json())
             .then(data => {
                 console.log("Fetched Books:", data);
@@ -29,7 +29,7 @@ const Books = () => {
         const confirmDelete = window.confirm("Are you sure you want to delete this book?");
         if (!confirmDelete) return;
 
-        fetch(`http://localhost:8080/books/delete/${id}`, {
+        fetch(`${API_BASE_URL}/books/delete/${id}`, {
             method: 'DELETE',
         })
             .then(() => setBooks(prevBooks => prevBooks.filter(book => book.id !== id)))
@@ -37,7 +37,7 @@ const Books = () => {
     };
 
     const handleSearch = () => {
-        fetch(`http://localhost:8080/books/bookFilter/${operator}/${filterBy}/${searchTerm}`)
+        fetch(`${API_BASE_URL}/books/bookFilter/${operator}/${filterBy}/${searchTerm}`)
             .then(response => response.json())
             .then(data => {
                 if (Array.isArray(data)) {

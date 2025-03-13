@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import API_BASE_URL from "../config";
 const CreateStudent = () => {
     const [student, setStudent] = useState({
         name: "",
@@ -17,7 +17,7 @@ const CreateStudent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("http://localhost:8080/student/create", {
+            const response = await fetch(`${API_BASE_URL}/student/create`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

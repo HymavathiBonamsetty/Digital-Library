@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import API_BASE_URL from "../config";
 const Student = () => {
     const [students, setStudents] = useState([]);
     const [transactions, setTransactions] = useState([]);
@@ -9,12 +9,12 @@ const Student = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch("http://localhost:8080/student/getAll")
+        fetch(`${API_BASE_URL}/student/getAll`)
             .then(response => response.json())
             .then(data => setStudents(Array.isArray(data) ? data : []))
             .catch(error => console.error("Error fetching students:", error));
 
-        fetch("http://localhost:8080/txn/getAll")
+        fetch(`${API_BASE_URL}/txn/getAll`)
             .then(response => response.json())
             .then(data => setTransactions(Array.isArray(data) ? data : []))
             .catch(error => console.error("Error fetching transactions:", error));
@@ -33,7 +33,7 @@ const Student = () => {
         const confirmDelete = window.confirm("Are you sure you want to delete this student?");
         if (!confirmDelete) return;
 
-        fetch(`http://localhost:8080/student/delete/${id}`, {
+        fetch(`${API_BASE_URL}/student/delete/${id}`, {
             method: 'DELETE',
         })
         .then(() => setStudents(prevStudents => prevStudents.filter(student => student.id !== id)))
@@ -45,7 +45,7 @@ const Student = () => {
     };
 
     const handleSearch = () => {
-        fetch(`http://localhost:8080/student/filter/EQUALS/${filterBy}/${searchTerm}`)
+        fetch(`${API_BASE_URL}/student/filter/EQUALS/${filterBy}/${searchTerm}`)
             .then(response => response.json())
             .then(data => setStudents(Array.isArray(data) ? data : []))
             .catch(error => console.error("Error searching students:", error));

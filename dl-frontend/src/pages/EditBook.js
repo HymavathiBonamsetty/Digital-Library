@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import API_BASE_URL from "../config";
 const EditBook = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ const EditBook = () => {
     });
 
     useEffect(() => {
-        fetch(`http://localhost:8080/books/get/${id}`)
+        fetch(`${API_BASE_URL}/get/${id}`)
             .then(response => response.json())
             .then(data => {
                 setBook({
@@ -47,7 +47,7 @@ const EditBook = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:8080/books/update/${id}`, {
+            const response = await fetch(`${API_BASE_URL}/books/update/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",

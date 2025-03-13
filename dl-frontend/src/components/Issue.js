@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import API_BASE_URL from "../config";
 const Issue = () => {
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:8080/txn/getAll")
+        fetch(`${API_BASE_URL}/txn/getAll`)
             .then(response => response.json())
             .then(data => setTransactions(data))
             .catch(error => console.error("Error fetching transactions:", error));
@@ -13,7 +13,7 @@ const Issue = () => {
 
     const handleReturn = async (txnId, studentEmail, bookNo) => {
         try {
-            const response = await fetch("http://localhost:8080/txn/return", {
+            const response = await fetch(`${API_BASE_URL}/txn/return`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
