@@ -6,7 +6,7 @@ FROM maven:3.8.5-openjdk-17 AS builder
 WORKDIR /app
 
 # Copy the project files to the container
-COPY ./dl-backend /app
+COPY . /app
 
 # Verify that pom.xml exists
 RUN ls -la /app
